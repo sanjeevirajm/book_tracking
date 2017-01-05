@@ -1,0 +1,121 @@
+package com.apps.sanjeeviraj.bookfiletracking;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.URL;
+import java.net.URLConnection;
+import android.content.Context;
+import android.content.Intent;
+import android.os.AsyncTask;
+import android.util.Log;
+import android.widget.Toast;
+
+public class PHPGetNoOfRacks  extends AsyncTask<String,Void,String>{
+
+    private Context context;
+    String IP, link;
+    String result = null;
+    public static Integer rack_no=0;
+
+    public PHPGetNoOfRacks(Context context) {
+        this.context = context;
+    }
+
+    protected void onPreExecute(){
+
+    }
+
+    @Override
+    protected String doInBackground(String... arg0) {
+        try{
+            Log.v("myapp", " inside PHPGetRacksActivity line: 1" );
+            IP = (String)arg0[0];
+
+            Log.v("myapp", " inside PHPGetRacksActivity line: 2" +IP);
+
+            link="http://"+IP+"/book_tracking/book_add/get_no_of_racks.php";
+            Log.v("myapp", " inside PHPGetRacksActivity line: 3" +link );
+
+            String notneeded = "notneeded";
+            String data  = "notneeded"+"="+notneeded;
+
+            Log.v("myapp", " inside PHPGetRacksActivity line: 4" );
+
+            URL url = new URL(link);
+            Log.v("myapp", " inside PHPGetRacksActivity line: 5" );
+            URLConnection conn = url.openConnection();
+            Log.v("myapp", " inside PHPGetRacksActivity line: 6" );
+
+            conn.setDoOutput(true);
+            Log.v("myapp", " inside PHPGetRacksActivity line: 7" );
+            OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
+
+            Log.v("myapp", " inside PHPGetRacksActivity line: 8" );
+            wr.write(data);
+            Log.v("myapp", " inside PHPGetRacksActivity line: 9" );
+            wr.flush();
+
+            Log.v("myapp", " inside PHPGetRacksActivity line: 10" );
+            BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+
+            Log.v("myapp", " inside PHPGetRacksActivity line: 11" );
+            StringBuilder sb = new StringBuilder();
+            Log.v("myapp", " inside PHPGetRacksActivity line: 12" );
+            String line;
+
+            Log.v("myapp", " inside PHPGetRacksActivity line: 13" );
+            // Read Server Response
+            while((line = reader.readLine()) != null)
+            {
+                sb.append(line);
+                Log.v("myapp","sb while : "+sb);
+                break;
+            }
+            result = sb.toString();
+
+            Log.v("myapp", " inside PHPGetRacksActivity line: 14" +result);
+            try {
+                result = result.trim();
+                rack_no = Integer.parseInt(result);
+            }
+            catch (Exception e)
+            {
+                Log.v("myapp","PHPGETRacks Exception: "+e );
+            }
+            //resultInt = Integer.parseInt(sb.toString());
+
+            //return sb.toString();
+            return result;
+        }
+        catch(Exception e){
+            return new String("Exception: " + e.getMessage());
+        }
+    }
+
+    @Override
+    protected void onPostExecute(String result){
+        if(rack_no == 0) {
+            Toast.makeText(context, "Enter no of racks", Toast.LENGTH_SHORT).show();
+            Log.v("myapp", " Before openSettingsActivity() ");
+            openSettingsActivity();
+        }
+
+    }
+
+    private void openSettingsActivity() {
+        try {
+            Log.v("myapp", " inside open settings function ");
+            Log.v("myapp", " after view initialization ");
+            Intent settings_intent = new Intent(context, SettingsActivity.class);
+            Log.v("myapp", " before startActivity ");
+            settings_intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(settings_intent);
+            Log.v("myapp", " after startActivity ");
+        }
+        catch (Exception e) {
+            Log.v("myapp", " after startActivity exception " +e);
+        }
+    }
+
+}
