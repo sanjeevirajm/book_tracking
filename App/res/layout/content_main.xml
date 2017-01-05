@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:showIn="@layout/activity_main" tools:context=".MainActivity">
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Rack Add"
+        android:id="@+id/rack_add_button"
+        android:clickable="true"
+        android:onClick="RackAdd"
+        android:enabled="true"
+        android:textSize="20dp"
+        android:layout_above="@+id/modify_button"
+        android:layout_alignLeft="@+id/modify_button"
+        android:layout_alignStart="@+id/modify_button"
+        android:layout_marginBottom="120dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Book Add"
+        android:id="@+id/book_add_button"
+        android:clickable="true"
+        android:onClick="BookAdd"
+        android:enabled="true"
+        android:textSize="20dp"
+        android:layout_above="@+id/modify_button"
+        android:layout_alignLeft="@+id/modify_button"
+        android:layout_alignStart="@+id/modify_button"
+        android:layout_marginBottom="40dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="   Modify  "
+        android:id="@+id/modify_button"
+        android:clickable="true"
+        android:onClick="Modify"
+        android:enabled="true"
+        android:textSize="20dp"
+        android:layout_centerVertical="true"
+        android:layout_alignLeft="@+id/search_button"
+        android:layout_alignStart="@+id/search_button"
+         />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="   Search  "
+        android:id="@+id/search_button"
+        android:clickable="true"
+        android:onClick="Search"
+        android:enabled="true"
+        android:textSize="20dp"
+        android:layout_below="@id/modify_button"
+        android:layout_alignLeft="@+id/arrange_button"
+        android:layout_alignStart="@+id/arrange_button"
+        android:layout_marginTop="40dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=" Arrange "
+        android:id="@+id/arrange_button"
+        android:enabled="true"
+        android:clickable="true"
+        android:onClick="Arrange"
+        android:textSize="20dp"
+        android:layout_below="@id/search_button"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp" />
+
+    <ProgressBar
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/progressBar"
+        android:layout_above="@+id/modify_button"
+        android:layout_centerHorizontal="true" />
+
+</RelativeLayout>
